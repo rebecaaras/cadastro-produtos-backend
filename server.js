@@ -30,11 +30,11 @@ app.get("/produtos", async (req, res) => {
 });
 
 app.post("/produtos", async (req, res) => {
-  const { product_name, description, price, availability } = req.body;
+  const { nome_produto, descricao, preco, disponibilidade } = req.body;
   try {
     const result = await db.query(
-      "INSERT INTO produtos (nome_produto, descricao, preco, disponibilidade) VALUES {$1, $2, $3, $4} RETURNING *",
-      [product_name, description, price, availability]
+      "INSERT INTO produtos (nome_produto, descricao, preco, disponibilidade) VALUES ($1, $2, $3, $4) RETURNING *",
+      [nome_produto, descricao, preco, disponibilidade]
     );
     res.status(201).json(result.rows[0]);
   } catch (err) {
